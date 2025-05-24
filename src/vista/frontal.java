@@ -7,6 +7,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class frontal extends javax.swing.JFrame {
     
@@ -16,12 +17,18 @@ public class frontal extends javax.swing.JFrame {
     
     public frontal() {
         
+        getContentPane().setBackground(new Color(200, 200, 100));
+        
+        
+        
+        
         initComponents();
         
         escritorio = new JDesktopPane();
         getContentPane().add(escritorio);
         
          setSize(700, 630);
+         setLocationRelativeTo(null);
   
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +176,7 @@ public class frontal extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 formComponentHidden(evt);
