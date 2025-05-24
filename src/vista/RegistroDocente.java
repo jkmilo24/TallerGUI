@@ -1,49 +1,72 @@
 package vista;
 
 import javax.swing.*;
+import java.sql.*;
 
 public class RegistroDocente extends JInternalFrame {
+    private JTextField txtCodigo, txtNombre;
+    private JButton btnIngresar, btnLimpiar;
 
     public RegistroDocente() {
-        setTitle("Registro de Docentes");
-        setClosable(true);
-        setIconifiable(true);
-        setResizable(false);
-        setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setSize(280, 250);
+        super("Registro de Docentes", true, true, true, true);
         setLayout(null);
+        setSize(300, 200);
 
-        JLabel lblCodigo = new JLabel("Codigo:");
-        JLabel lblNombre = new JLabel("Nombre:");
-        JLabel lblCodCurso = new JLabel("Codigo Curso:");
-        JLabel lblNomCurso = new JLabel("Nombre Curso:");
-        JTextField txtCodigo = new JTextField();
-        JTextField txtNombre = new JTextField();
-        JComboBox<String> cbCursos = new JComboBox<>(new String[]{"Seleccione", "Curso1", "Curso2"});
-        JTextField txtNomCurso = new JTextField();
-        JButton btnIngresar = new JButton("Ingresar");
-        JButton btnLimpiar = new JButton("Limpiar");
-
-        lblCodigo.setBounds(20, 20, 100, 25);
-        txtCodigo.setBounds(120, 20, 130, 25);
-        lblNombre.setBounds(20, 50, 100, 25);
-        txtNombre.setBounds(120, 50, 130, 25);
-        lblCodCurso.setBounds(20, 80, 100, 25);
-        cbCursos.setBounds(120, 80, 130, 25);
-        lblNomCurso.setBounds(20, 110, 100, 25);
-        txtNomCurso.setBounds(120, 110, 130, 25);
-        btnIngresar.setBounds(20, 160, 90, 25);
-        btnLimpiar.setBounds(140, 160, 90, 25);
-
+        JLabel lblCodigo = new JLabel("Código:");
+        lblCodigo.setBounds(30, 20, 80, 25);
         add(lblCodigo);
+
+        txtCodigo = new JTextField();
+        txtCodigo.setBounds(110, 20, 140, 25);
         add(txtCodigo);
+
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(30, 60, 80, 25);
         add(lblNombre);
+
+        txtNombre = new JTextField();
+        txtNombre.setBounds(110, 60, 140, 25);
         add(txtNombre);
-        add(lblCodCurso);
-        add(cbCursos);
-        add(lblNomCurso);
-        add(txtNomCurso);
+
+        btnIngresar = new JButton("Ingresar");
+        btnIngresar.setBounds(30, 110, 100, 25);
         add(btnIngresar);
+
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setBounds(150, 110, 100, 25);
         add(btnLimpiar);
+
+        btnIngresar.addActionListener(e -> insertarDocente());
+        btnLimpiar.addActionListener(e -> limpiarCampos());
+    }
+
+    private void insertarDocente() {
+        String codigo = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+
+        if (codigo.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos");
+            return;
+        }
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tallet_practico", "root", "kmilo");
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO docentes (cod_docente, nom_docente) VALUES (?, ?)")) {
+
+            stmt.setString(1, codigo);
+            stmt.setString(2, nombre);
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(this, "Docente registrado exitosamente");
+            limpiarCampos();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al registrar docente");
+        }
+    }
+
+    private void limpiarCampos() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
     }
 }

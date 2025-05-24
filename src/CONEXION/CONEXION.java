@@ -7,24 +7,24 @@ import javax.swing.JOptionPane;
 
 public class CONEXION {
     Connection conectar;
-    
+
     String usuario = "root";
     String contraseña = "kmilo";
-    String bd = "inicio";
+    String bd = "tallet_practico"; // aquí asegúrate de poner el nombre correcto de tu BD
     String ip = "localhost";
     String puerto = "3306";
-    
-    String cadena = "jdbc:mysql://"+ip+":"+puerto+"/"+bd;
-    
+
+    String cadena = "jdbc:mysql://" + ip + ":" + puerto + "/" + bd + "?serverTimezone=UTC";
+
     public Connection conectar() {
-    try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost/tu_base", "usuario", "contraseña");
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conectar = DriverManager.getConnection(cadena, usuario, contraseña);
+            return conectar;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage());
+            return null;
+        }
     }
 }
 
-   
-}
