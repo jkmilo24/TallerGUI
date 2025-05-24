@@ -1,6 +1,9 @@
 package vista;
 
+import CONEXION.CONEXION;
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class RegistroEstudiante extends JInternalFrame {
 
@@ -8,7 +11,7 @@ public class RegistroEstudiante extends JInternalFrame {
     private JButton btnIngresar, btnLimpiar;
 
     public RegistroEstudiante() {
-        super("Registro de Estudiantes", true, true, true, true); // título, closable, resizable, etc.
+        super("Registro de Estudiantes", true, true, true, true);
         setLayout(null);
         setSize(300, 200);
 
@@ -37,15 +40,37 @@ public class RegistroEstudiante extends JInternalFrame {
         add(btnLimpiar);
 
         btnIngresar.addActionListener(e -> {
-            String codigo = txtCodigo.getText();
-            String nombre = txtNombre.getText();
+            String codigo = txtCodigo.getText().trim();
+            String nombre = txtNombre.getText().trim();
 
             if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos");
-            } else {
-                JOptionPane.showMessageDialog(this, "Estudiante registrado:\nCódigo: " + codigo + "\nNombre: " + nombre);
-                txtCodigo.setText("");
-                txtNombre.setText("");
+                return;
+            }
+
+            try {
+                CONEXION conexionBD = new CONEXION();
+                Connection con = conexionBD.conectar();
+
+                String sql = "INSERT INTO estudiantes (cod_estudiante, nom_estudiante) VALUES (?, ?)";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, codigo);
+                ps.setString(2, nombre);
+
+                int filas = ps.executeUpdate();
+                if (filas > 0) {
+                    JOptionPane.showMessageDialog(this, "Estudiante registrado exitosamente.");
+                    txtCodigo.setText("");
+                    txtNombre.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo registrar el estudiante.");
+                }
+
+                con.close();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al registrar estudiante.");
             }
         });
 

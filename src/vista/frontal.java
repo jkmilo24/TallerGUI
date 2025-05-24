@@ -21,7 +21,7 @@ public class frontal extends javax.swing.JFrame {
         escritorio = new JDesktopPane();
         getContentPane().add(escritorio);
         
-         setSize(700, 600);
+         setSize(700, 630);
   
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,6 +41,49 @@ public class frontal extends javax.swing.JFrame {
     }
 });
         
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jMenuItem6ActionPerformed(evt);
+    }
+}); 
+        
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            ListadoEstudiantes ventana = new ListadoEstudiantes();
+            ventana.setClosable(true);
+            ventana.setMaximizable(true);
+            ventana.setResizable(true);
+            ventana.setIconifiable(true);
+            agregarVentana(ventana);
+    }
+});
+        
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            Autores ventana = new Autores(escritorio);
+            ventana.setClosable(true);
+            ventana.setResizable(true);
+            ventana.setIconifiable(true);
+            ventana.setMaximizable(true);
+            agregarVentana(ventana);
+    }
+});
+
+        
+        jMenuItem8.addActionListener(e -> {
+        ListadoCursos ventana = new ListadoCursos();
+        agregarVentana(ventana);
+});
+
+        jMenuItem9.addActionListener(e -> {
+        ListadoMatriculas ventana = new ListadoMatriculas();
+        agregarVentana(ventana);
+});
+
+        jMenuItem10.addActionListener(e -> {
+        ListadoNotas ventana = new ListadoNotas();
+        agregarVentana(ventana);
+});
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +161,12 @@ public class frontal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -144,6 +192,11 @@ public class frontal extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Salir");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -163,9 +216,26 @@ public class frontal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu7);
 
         jMenu4.setText("Listados");
+
+        jMenuItem7.setText("Estudiantes");
+        jMenu4.add(jMenuItem7);
+
+        jMenuItem8.setText("Cursos");
+        jMenu4.add(jMenuItem8);
+
+        jMenuItem9.setText("Matriculas");
+        jMenu4.add(jMenuItem9);
+
+        jMenuItem10.setText("Notas");
+        jMenu4.add(jMenuItem10);
+
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setText("Help");
+        jMenu5.setText("Autores");
+
+        jMenuItem11.setText("Dar Click");
+        jMenu5.add(jMenuItem11);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -199,6 +269,11 @@ public class frontal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0); // Cierra completamente la aplicación
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
         RegistroCurso ventana = new RegistroCurso();
@@ -226,6 +301,40 @@ public class frontal extends javax.swing.JFrame {
     ventana.setMaximizable(true);
     agregarVentana(ventana); // Usa tu método existente para agregar y organizar
 }
+    
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
+    RegistroCalificaciones ventana = new RegistroCalificaciones();
+    ventana.setClosable(true);
+    ventana.setResizable(true);
+    ventana.setIconifiable(true);
+    ventana.setMaximizable(true);
+    agregarVentana(ventana);
+}
+    
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {
+    ListadoEstudiantes ventana = new ListadoEstudiantes();
+    ventana.setClosable(true);
+    ventana.setResizable(true);
+    ventana.setIconifiable(true);
+    ventana.setMaximizable(true);
+    agregarVentana(ventana);
+}
+    
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {
+    ListadoCursos ventana = new ListadoCursos();
+    agregarVentana(ventana);
+}
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {
+    ListadoMatriculas ventana = new ListadoMatriculas();
+    agregarVentana(ventana);
+}
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {
+    ListadoNotas ventana = new ListadoNotas();
+    agregarVentana(ventana);
+}
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -267,10 +376,15 @@ public class frontal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
