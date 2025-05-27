@@ -23,7 +23,7 @@ public class frontal extends javax.swing.JFrame {
         
         
         initComponents();
-        
+       
         escritorio = new JDesktopPane();
         getContentPane().add(escritorio);
         

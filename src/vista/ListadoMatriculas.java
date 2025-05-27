@@ -3,6 +3,7 @@ package vista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import java.awt.Color;
 
 public class ListadoMatriculas extends JInternalFrame {
 
@@ -18,6 +19,11 @@ public class ListadoMatriculas extends JInternalFrame {
 
         modelo.addColumn("Estudiante");
         modelo.addColumn("Curso");
+        
+        
+        getContentPane().setBackground(new Color(200, 255, 100));
+        Color fondoComponente = new Color(240, 255, 240); // Verde más claro para componentes
+        Color fondoBoton = new Color(180, 230, 180); // Botón verde suave
 
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tallet_practico", "root", "kmilo");
              Statement stmt = conn.createStatement();
