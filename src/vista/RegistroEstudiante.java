@@ -1,9 +1,9 @@
 package vista;
-
 import CONEXION.CONEXION;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.awt.Color;
 
 public class RegistroEstudiante extends JInternalFrame {
 
@@ -14,6 +14,11 @@ public class RegistroEstudiante extends JInternalFrame {
         super("Registro de Estudiantes", true, true, true, true);
         setLayout(null);
         setSize(300, 200);
+        
+  
+        getContentPane().setBackground(new Color(200, 255, 100));
+        Color fondoComponente = new Color(240, 255, 240); // Verde más claro para componentes
+        Color fondoBoton = new Color(180, 230, 180); // Botón verde suave
 
         JLabel lblCodigo = new JLabel("Código:");
         lblCodigo.setBounds(30, 20, 80, 25);
@@ -42,6 +47,8 @@ public class RegistroEstudiante extends JInternalFrame {
         btnIngresar.addActionListener(e -> {
             String codigo = txtCodigo.getText().trim();
             String nombre = txtNombre.getText().trim();
+            
+            
 
             if (codigo.isEmpty() || nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos");

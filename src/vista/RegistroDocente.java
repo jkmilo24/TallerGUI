@@ -1,7 +1,7 @@
 package vista;
-
 import javax.swing.*;
 import java.sql.*;
+import java.awt.Color;
 
 public class RegistroDocente extends JInternalFrame {
     private JTextField txtCodigo, txtNombre;
@@ -38,6 +38,17 @@ public class RegistroDocente extends JInternalFrame {
 
         btnIngresar.addActionListener(e -> insertarDocente());
         btnLimpiar.addActionListener(e -> limpiarCampos());
+        
+        
+        
+        getContentPane().setBackground(new Color(200, 255, 100));
+        Color fondoComponente = new Color(240, 255, 240); // Verde más claro para componentes
+        Color fondoBoton = new Color(180, 230, 180); // Botón verde suave
+        
+        
+        
+        
+        
     }
 
     private void insertarDocente() {

@@ -1,9 +1,7 @@
 package vista;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
-
 public class ListadoNotas extends JInternalFrame {
 
     public ListadoNotas() {

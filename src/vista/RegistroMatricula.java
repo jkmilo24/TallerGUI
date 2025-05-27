@@ -1,9 +1,9 @@
 package vista;
-
 import CONEXION.CONEXION;
 import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class RegistroMatricula extends JInternalFrame {
 
@@ -14,6 +14,12 @@ public class RegistroMatricula extends JInternalFrame {
     private JLabel lblMensaje;
 
     public RegistroMatricula() {
+        
+        getContentPane().setBackground(new Color(100, 200, 100));
+        Color fondoComponente = new Color(240, 255, 240); // Verde más claro para componentes
+        Color fondoBoton = new Color(180, 230, 180); // Botón verde suave
+        
+       
         setTitle("Registro de Matrículas");
         setClosable(true);
         setIconifiable(true);

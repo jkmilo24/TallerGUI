@@ -1,8 +1,8 @@
 package vista;
-
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+import java.awt.*;
 import java.sql.*;
 import java.util.*;
 
@@ -12,54 +12,91 @@ public class RegistroCalificaciones extends JInternalFrame {
     private JLabel lblNombreDocente, lblNombreCurso;
     private JTable tablaEstudiantes;
     private JButton btnCalificar;
-    private Map<String, String> mapDocentes; // cod_docente -> nom_docente
-    private Map<String, String> mapCursos;   // cod_docente -> nom_curso
+    private Map<String, String> mapDocentes;
+    private Map<String, String> mapCursos;
     private String codCursoActual = "";
 
     public RegistroCalificaciones() {
-        setTitle("Calificaciones");
+        setTitle("Registro de Calificaciones");
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setSize(700, 500);
+        setSize(800, 600);
         setLayout(null);
+
+        // Colores modernos
+        Color fondoPrincipal = new Color(245, 248, 255);
+        Color fondoPanel = new Color(230, 240, 255);
+        Color colorBoton = new Color(100, 149, 237);
+        Color textoBoton = Color.WHITE;
+
+        getContentPane().setBackground(fondoPrincipal);
+
+        JPanel panelDocente = new JPanel(null);
+        panelDocente.setBounds(30, 20, 720, 120);
+        panelDocente.setBackground(fondoPanel);
+        panelDocente.setBorder(new LineBorder(new Color(180, 200, 255), 2, true));
+        add(panelDocente);
+
+        JLabel lblTitulo = new JLabel("Registro de Calificaciones por Docente");
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblTitulo.setBounds(200, 0, 400, 30);
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        add(lblTitulo);
 
         JLabel lblCodigoDocente = new JLabel("Código Docente:");
         lblCodigoDocente.setBounds(20, 20, 120, 25);
-        add(lblCodigoDocente);
+        lblCodigoDocente.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        panelDocente.add(lblCodigoDocente);
 
         comboDocentes = new JComboBox<>(new String[]{"Seleccione"});
         comboDocentes.setBounds(150, 20, 150, 25);
-        add(comboDocentes);
+        comboDocentes.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        panelDocente.add(comboDocentes);
 
         JLabel lblNombre = new JLabel("Nombre Docente:");
         lblNombre.setBounds(20, 55, 120, 25);
-        add(lblNombre);
+        lblNombre.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        panelDocente.add(lblNombre);
 
         lblNombreDocente = new JLabel("");
-        lblNombreDocente.setBounds(150, 60, 250, 15);
-        add(lblNombreDocente);
+        lblNombreDocente.setBounds(150, 55, 300, 25);
+        lblNombreDocente.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        panelDocente.add(lblNombreDocente);
 
-        JLabel lblCurso = new JLabel("Nombre Curso:");
+        JLabel lblCurso = new JLabel("Curso Asignado:");
         lblCurso.setBounds(20, 85, 120, 25);
-        add(lblCurso);
+        lblCurso.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        panelDocente.add(lblCurso);
 
         lblNombreCurso = new JLabel("");
-        lblNombreCurso.setBounds(150, 90, 250, 15);
-        add(lblNombreCurso);
+        lblNombreCurso.setBounds(150, 85, 300, 25);
+        lblNombreCurso.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        panelDocente.add(lblNombreCurso);
 
-        tablaEstudiantes = new JTable(new DefaultTableModel(new Object[]{"CodEst", "NombreEst", "Nota Curso"}, 0));
+        JLabel lblTabla = new JLabel("Listado de Estudiantes:");
+        lblTabla.setBounds(30, 160, 200, 25);
+        lblTabla.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        add(lblTabla);
+
+        tablaEstudiantes = new JTable(new DefaultTableModel(new Object[]{"Código", "Nombre", "Nota"}, 0));
+        tablaEstudiantes.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tablaEstudiantes.setRowHeight(25);
         JScrollPane scrollTabla = new JScrollPane(tablaEstudiantes);
-        scrollTabla.setBounds(20, 120, 280, 80);
+        scrollTabla.setBounds(30, 190, 720, 250);
         add(scrollTabla);
 
-        btnCalificar = new JButton("Calificar");
-        btnCalificar.setBounds(110, 210, 85, 20);
+        btnCalificar = new JButton("Registrar Notas");
+        btnCalificar.setBounds(310, 460, 160, 35);
+        btnCalificar.setBackground(colorBoton);
+        btnCalificar.setForeground(textoBoton);
+        btnCalificar.setFocusPainted(false);
+        btnCalificar.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btnCalificar.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1, true));
         add(btnCalificar);
 
         comboDocentes.addActionListener(e -> cargarCursoYEstudiantes());
-
         btnCalificar.addActionListener(e -> registrarNotas());
 
         cargarDocentesDesdeBD();
@@ -73,7 +110,7 @@ public class RegistroCalificaciones extends JInternalFrame {
              ResultSet rs = stmt.executeQuery("SELECT d.cod_docente, d.nom_docente, c.nom_curso, c.cod_curso " +
                                               "FROM docentes d LEFT JOIN cursos c ON d.cod_docente = c.cod_docente")) {
             comboDocentes.removeAllItems();
-            comboDocentes.addItem("Seleccione"); // <-- Línea agregada
+            comboDocentes.addItem("Seleccione");
             while (rs.next()) {
                 String cod = rs.getString("cod_docente");
                 String nombre = rs.getString("nom_docente");
@@ -121,7 +158,7 @@ public class RegistroCalificaciones extends JInternalFrame {
                             modelo.addRow(new Object[]{
                                     rs.getString("cod_estudiante"),
                                     rs.getString("nom_estudiante"),
-                                    ""  // Nota por ingresar
+                                    ""
                             });
                         }
                     }
