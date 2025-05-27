@@ -34,14 +34,14 @@ public class RegistroCalificaciones extends JInternalFrame {
         getContentPane().setBackground(fondoPrincipal);
 
         JPanel panelDocente = new JPanel(null);
-        panelDocente.setBounds(30, 20, 720, 120);
+        panelDocente.setBounds(30, 60, 500, 120);
         panelDocente.setBackground(fondoPanel);
         panelDocente.setBorder(new LineBorder(new Color(180, 200, 255), 2, true));
         add(panelDocente);
 
         JLabel lblTitulo = new JLabel("Registro de Calificaciones por Docente");
         lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lblTitulo.setBounds(200, 0, 400, 30);
+        lblTitulo.setBounds(80, 0, 400, 60);
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblTitulo);
 
@@ -84,11 +84,11 @@ public class RegistroCalificaciones extends JInternalFrame {
         tablaEstudiantes.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         tablaEstudiantes.setRowHeight(25);
         JScrollPane scrollTabla = new JScrollPane(tablaEstudiantes);
-        scrollTabla.setBounds(30, 190, 720, 250);
+        scrollTabla.setBounds(30, 190, 500, 120);
         add(scrollTabla);
 
         btnCalificar = new JButton("Registrar Notas");
-        btnCalificar.setBounds(310, 460, 160, 35);
+        btnCalificar.setBounds(190, 350, 160, 35);
         btnCalificar.setBackground(colorBoton);
         btnCalificar.setForeground(textoBoton);
         btnCalificar.setFocusPainted(false);
